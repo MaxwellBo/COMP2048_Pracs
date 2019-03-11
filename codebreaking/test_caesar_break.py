@@ -11,13 +11,13 @@ import string
 
 message = "Zyp cpxpxmpc ez wzzv fa le esp delcd lyo yze ozhy le jzfc qppe Ehz ypgpc rtgp fa hzcv Hzcv rtgpd jzf xplytyr lyo afcazdp lyo wtqp td pxaej hteszfe te Escpp tq jzf lcp wfnvj pyzfrs ez qtyo wzgp cpxpxmpc te td espcp lyo ozye esczh te lhlj Depaspy Slhvtyr" 
 
-# frequency of each letter
-letter_counts = Counter(message)
+# frequency of each letter, bar spaces
+letter_counts = Counter("".join([ i for i in message if i != ' ']))
 print(letter_counts)
 
 # find max letter
 #                                                 v sort by frequency
-sorted_counts = sorted(letter_counts.items(), key=lambda tup: tup[0], reverse=True)
+sorted_counts = sorted(letter_counts.items(), key=lambda tup: tup[1], reverse=True)
 max_letter, max_freq = sorted_counts[0] # get the highest freq-letter pair
 print("Max Ocurring Letter:", max_letter)
 
@@ -31,10 +31,14 @@ max_letter_index = letters.find(max_letter)
 shift = max_letter_index - e_index
 print("Predicted Shift:", shift)
 
-def deshift(x):
-    index = (letters.find(x) - shift) % len(letters)
-    #                                 ^ wrap around
+def deshift(character):
+    if character == " ":
+        return " "
+
+    index = (letters.find(character) - shift) % len(letters)
+    #                                         ^ wrap around
     return letters[index]
+
 
 deshifted_message = "".join([deshift(i) for i in message])
 print("The deshifted message is:", deshifted_message)
