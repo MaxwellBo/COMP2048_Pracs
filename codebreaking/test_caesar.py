@@ -22,10 +22,13 @@ keys = {} #use dictionary for letter mapping
 invkeys = {} #use dictionary for inverse letter mapping, you could use inverse search from original dict
 for index, letter in enumerate(letters):
     # cypher setup
-    if index < totalLetters: #lowercase
-        #INSERT CODE HERE
-    else: #uppercase
-        #INSERT CODE HERE
+    target_index = (index + offset) % len(letters)
+
+    source                  = letters[index]
+    destination             = letters[target_index]
+    keys[source]            = destination
+    invkeys[destination]    = source
+
 print("Cypher Dict:", keys)
 
 #encrypt
