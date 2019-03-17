@@ -17,7 +17,7 @@ engine = enigma.Enigma(rotor.ROTOR_Reflector_A, rotor.ROTOR_I,
                                 rotor.ROTOR_II, rotor.ROTOR_III, key="ABC",
                                 plugs="AA BB CC DD EE")
 
-#print(engine)
+print(engine)
 
 # Part a)
 message = "Hello World"
