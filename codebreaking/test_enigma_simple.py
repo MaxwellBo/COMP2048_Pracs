@@ -25,12 +25,21 @@ print("Message:", message)
 secret = engine.encipher(message)
 print("Encoded Message:", secret)
 
-#Write code to decrypt message below
-#HINT: Reuse the code above to do it. You do not need to write a decrypt function.
-#INSERT CODE HERE
+
+decoder_engine = enigma.Enigma(rotor.ROTOR_Reflector_A, rotor.ROTOR_I,
+                                rotor.ROTOR_II, rotor.ROTOR_III, key="ABC",
+                                plugs="AA BB CC DD EE")
+
+decoded_message = decoder_engine.encipher(secret)
+print("Decoded Message:", decoded_message)
 
 #Part b)
 ShakesHorribleMessage = "Vxye ajgh D yf? Ptn uluo yjgco L ws nznde czidn. Bsj ccj qdbk qjph wpw ypxvu!"
+print("Encoded Message:", ShakesHorribleMessage)
 
-#Write code to decrypt message above
-#INSERT CODE HERE
+decoder_engine = enigma.Enigma(rotor.ROTOR_Reflector_A, rotor.ROTOR_I,
+                                rotor.ROTOR_II, rotor.ROTOR_III, key="SSC",
+                                plugs="AA BB CC DD EE")
+
+decoded_message = decoder_engine.encipher(ShakesHorribleMessage)
+print("Decoded Message:", decoded_message)
