@@ -40,5 +40,6 @@ def deshift_message(message):
 
     return "".join([deshift_character(character=i, shift=shift) for i in message])
 
-deshifted_message = deshift_message(message)
-print("The deshifted message is:", deshifted_message)
+if __name__ == "__main__":
+    deshifted_message = deshift_message(message)
+    print("The deshifted message is:", deshifted_message)

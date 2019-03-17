@@ -44,12 +44,13 @@ def go():
             print('Attempts required:', counter)
             break
 
-start = time.time()
-go()
-end = time.time()
-print('Time taken:', end - start)
+if __name__ == "__main__":
+    start = time.time()
+    go()
+    end = time.time()
+    print('Time taken:', end - start)
 
-combinations_with_3_rotors = len(capitalLetters) ** 3
-combinations_with_5_rotors = len(capitalLetters) ** 5
-time_taken_per_combination = (end - start) / combinations_with_3_rotors
-print('Estimated time it would take if there were 5 rotors:', time_taken_per_combination * combinations_with_5_rotors)
+    combinations_with_3_rotors = len(capitalLetters) ** 3
+    combinations_with_5_rotors = len(capitalLetters) ** 5
+    time_taken_per_combination = (end - start) / combinations_with_3_rotors
+    print('Estimated time it would take if there were 5 rotors:', time_taken_per_combination * combinations_with_5_rotors)
