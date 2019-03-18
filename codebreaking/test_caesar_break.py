@@ -20,7 +20,7 @@ def deshift_character(character, shift):
     #                                         ^ wrap around
     return letters[index]
 
-def deshift_message(message):
+def deshift_message(message, most_common_letter='e'):
     # frequency of each letter, bar spaces
     letter_counts = Counter("".join([ i for i in message if i != ' ']))
 
@@ -32,7 +32,7 @@ def deshift_message(message):
 
     # predict shift
     # assume max letter is 'e'
-    e_index          = letters.find('e')
+    e_index          = letters.find(most_common_letter)
     max_letter_index = letters.find(max_letter)
 
     shift = max_letter_index - e_index
