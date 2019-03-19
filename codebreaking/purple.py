@@ -4,6 +4,75 @@ from collections import Counter
 from itertools import permutations
 
 sequence = [ 19, 17, 17, 19, 14, 20, 23, 18, 19, 8, 12, 16, 19, 8, 3, 21, 8, 25, 18, 14, 18, 6, 3, 18, 8, 15, 18, 22, 18, 11 ] 
+#            a    t  t   a   c    k   p   e   a  r  l   h   a   r  b   o  r   d   e   c  e   m  b   e  r  s   e   v   e   n
+
+counts = Counter(sequence)
+sorted_counts = sorted(counts.items(), key=lambda tup: tup[1], reverse=True)
+
+for (k, v) in sorted_counts:
+    print(k, v)
+
+letter_frequency_in_order = 'etaoinshrdlcumwfgypbvkjxqz'
+# 18 6 assume e 
+# 19 4 probably a 
+# 8  4 might be in 'oiu'
+# 17 2 probably t
+# 14 2 probably c 
+# 3  2
+# 20 1 probably k
+# 23 1
+# 12 1
+# 16 1
+# 21 1
+# 25 1
+# 6  1
+# 15 1
+# 22 1
+# 11 1
+
+mappings = {
+    19: 'a',
+    17: 't',
+    14: 'c',
+    20: 'k',
+    18: 'e'
+}
+
+print("".join([mappings.get(i, '?') for i in sequence]))
+# attack?ea???a?????ece??e??e?e?
+#       ^ is this the start of pearl?
+
+mappings[23] ='p'
+mappings[8]  ='r'
+mappings[12] ='l'
+
+print("".join([mappings.get(i, '?') for i in sequence]))
+# attackpearl?ar??r?ece??er?e?e?
+#            ^ looking like the start of harbor
+
+mappings[16] ='h'
+mappings[3]  ='b'
+mappings[21] ='o'
+
+print("".join([mappings.get(i, '?') for i in sequence]))
+# attackpearlharbor?ece?ber?e?e?
+#                  ^ december? It would make sense for it to be a date
+
+mappings[25] ='d'
+mappings[6] = 'm'
+
+print("".join([mappings.get(i, '?') for i in sequence]))
+# attackpearlharbordecember?e?e?
+#                          ^ seven
+
+mappings[15] ='s'
+mappings[22] = 'v'
+mappings[11] = 'n'
+
+print("".join([mappings.get(i, '?') for i in sequence]))
+# attackpearlharbordecemberseven
+
+exit()
 
 lowercase = 'abcdefghijklmnopqrstuvwxyz'
 message = "".join([ lowercase[i] for i in sequence ])
@@ -15,7 +84,6 @@ print('message', message)
 domain = set(message)
 print("Domain size", len(domain)) # 16
 
-letter_frequency_in_order = 'etaoinshrdlcumwfgypbvkjxqz'
 assert(len(letter_frequency_in_order) == 26)
 
 attack_table = {
