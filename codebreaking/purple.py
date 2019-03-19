@@ -1,44 +1,43 @@
 import string
 from test_caesar_break import deshift_message
 from collections import Counter
-#      a   t   t   a   c   k                                                   c 
-xs = [ 19, 17, 17, 19, 14, 20, 23, 18, 19, 8, 12, 16, 19, 8, 3, 21, 8, 25, 18, 14, 18, 6, 3, 18, 8, 15, 18, 22, 18, 11 ] 
+from itertools import permutations
 
-# frequency of each letter, bar spaces
-letter_counts = Counter([ i for i in xs ])
-
+sequence = [ 19, 17, 17, 19, 14, 20, 23, 18, 19, 8, 12, 16, 19, 8, 3, 21, 8, 25, 18, 14, 18, 6, 3, 18, 8, 15, 18, 22, 18, 11 ] 
 
 lowercase = 'abcdefghijklmnopqrstuvwxyz'
+message = "".join([ lowercase[i] for i in sequence ])
+print('message', message)
+# trrtouxstimqtidvizsosgdsipswsl
+# SHOULD MAP TO
+# attack????????????????????????
 
+domain = set(message)
+print("Domain size", len(domain)) # 16
 
+letter_frequency_in_order = 'etaoinshrdlcumwfgypbvkjxqz'
+assert(len(letter_frequency_in_order) == 26)
 
-# find max letter
-#                                                 v sort by frequency
-sorted_counts = sorted(letter_counts.items(), key=lambda tup: tup[1], reverse=True)
-
-print(sorted_counts)
-
-lookup = {
-    19: 'a',
-    17: 't',
-    14: 'c',
-    20: 'k',
-
-    18: 'u', # vowel candidates
-    8: 'i',
-    3: 'u'
+attack_table = {
+    't': 'a',
+    'r': 't',
+    'o': 'c',
+    'u': 'k',
 }
 
-letters = string.ascii_letters #contains 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+next_most_frequent_without_attack = "".join([ i for i in letter_frequency_in_order if i not in 'attack'])
+remaining_12 = next_most_frequent_without_attack[:12]
+print(remaining_12)
+# we already know the mappings for 4 of the characters, and we know the domain is 16 characters
 
-def lookup_fallback(i):
-    maybeChr = lookup.get(i)
+known_domain_mappings = set("trou")
+unknown_domain_mappings = domain - known_domain_mappings
 
-    if maybeChr is None:
-        return letters[i]
-    else:
-        return maybeChr
+for permutation in permutations(remaining_12):
+    # map the unknown domain onto the remaing most frequent letters
+    rest_table = dict(zip(unknown_domain_mappings, permutation))
+    combined_table = {**attack_table, **rest_table}
+
+    candidate = "".join([combined_table[i] for i in message])
+    print(candidate)
     
-message = "".join([ lookup_fallback(i) for i in xs ])
-
-print(message)
