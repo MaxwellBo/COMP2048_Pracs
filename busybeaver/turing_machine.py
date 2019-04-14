@@ -177,7 +177,12 @@ class TuringMachine:
             elif left_hand_side: #!<<<< MODIFY THIS SECTION OF IF STATEMENT FOR PART 3a
                 # Move to the left only if there is a symbold to move.
                 right_hand_side.insert(0, symbol)
-                symbol = left_hand_side.pop(0)
+
+                try:
+                    symbol = left_hand_side.pop(0)
+                except IndexError:
+                    # Pretend that we always have a blank symbol on the right.
+                    symbol = self.blank_symbol
             #!<<<<<<<<< MODIFY ABOVE >>>>>>>>>>>>
 
             else:

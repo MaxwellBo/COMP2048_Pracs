@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # This flips the machine into  FindDelimiter0 and Check0 chain
     run("0111#XXXX0")
     
-    # REJECTS - this one reaches the end and checks the 0, and then
+    # REJECTS - this one reaches the end and checks the '0', and then
     # move back all the way to beginning
     run("0111#XXXX0")
 
@@ -89,5 +89,5 @@ if __name__ == "__main__":
     run("101#101")
     # tape output at the end: XXX#XXX
     
-    # This machine matches identitcal strings of characters at either end 
-
+    # This machine matches identitcal strings of characters at either end of 
+    # the delimter, and transforms them into Xs

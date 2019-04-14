@@ -11,12 +11,36 @@ from turing_machine import TuringMachine
 #create the Turing machine
 multiplier = TuringMachine( 
     { 
-        #Write your transition rules here as entries to a Python dictionary
-        #For example, the key will be a pair (state, character)
-        #The value will be the triple (next state, character to write, move head L or R)
-        #such as ('q0', '1'): ('q1', '0', 'R'), which says if current state is q0 and 1 encountered
-        #then transition to state q1, write a 0 and move head right.
+        ('q0', '1'): ('SkipFirst', '', 'R'),
+        ('SkipFirst', '1'): ('SkipGlobalLoop', 'd', 'R'),
+        ('SkipGlobalLoop', '1'): ('SkipGlobalLoop', '1', 'R'),
+        ('SkipGlobalLoop', '0'): ('MarkAccumulatorLoopIndex', '0', 'R'),
+        ('MarkAccumulatorLoopIndex', '1'): ('GetToEndOfAccAndMark', '*', 'R'),
+        ('GetToEndOfAccAndMark', '1'): ('GetToEndOfAccAndMark', '1', 'R'),
+        ('GetToEndOfAccAndMark', ''): ('GetToAccLoopIndexLeft', '#', 'L'),
+        ('MarkEndOfAcc', '1'): ('Place', '1', 'L'),
+        ('Place', '1'): ('GetToAccLoopIndexLeft', '1', 'L'),
+        ('GetToAccLoopIndexLeft', '1'): ('GetToAccLoopIndexLeft', '1', 'L'),
+        ('GetToAccLoopIndexLeft', '#'): ('GetToAccLoopIndexLeft', '#', 'L'),
+        ('GetToAccLoopIndexLeft', '*'): ('IncrAccLoopIndex', '1', 'R'),
+        ('IncrAccLoopIndex', '#'): ('GetToGlobalLoopIndex', '*', 'L'),
+        ('IncrAccLoopIndex', '1'): ('GetToEndOfAccAndAdd', '*', 'R'),
+        ('GetToEndOfAccAndAdd', '1'): ('GetToEndOfAccAndAdd', '1', 'R'),
+        ('GetToEndOfAccAndAdd', ''): ('GetToAccLoopIndexLeft', '1', 'L'),
+        ('GetToEndOfAccAndAdd', '#'): ('GetToEndOfAccAndAdd', '#', 'R'),
+        ('GetToGlobalLoopIndex', '1'): ('GetToGlobalLoopIndex', '1', 'L'),
+        ('GetToGlobalLoopIndex', '0'): ('GetToGlobalLoopIndex', '0', 'L'),
+        ('GetToGlobalLoopIndex', 'd'): ('IncrGlobalLoopIndex', '', 'R'),
+        ('GetToAccLoopIndexRight', '1'): ('GetToAccLoopIndexRight', '1', 'R'),
+        ('GetToAccLoopIndexRight', '0'): ('GetToAccLoopIndexRight', '0', 'R'),
+        ('GetToAccLoopIndexRight', '*'): ('GetToEndOfAccAndMark', '*', 'R'),
+        ('IncrGlobalLoopIndex', '1'): ('GetToAccLoopIndexRight', 'd', 'R'),
+        ('IncrGlobalLoopIndex', '0'): ('Cleanup', '1', 'R'),
+        ('Cleanup', '1'): ('Cleanup', '1', 'R'),
+        ('Cleanup', '*'): ('Cleanup', '1', 'R'),
+        ('Cleanup', ''): ('PruneLast', '', 'L'),
+        ('PruneLast', '1'): ('qa', '', 'R')
     }
 )
 
-multiplier.debug('1101111', step_limit=300)
+multiplier.debug('1110111', step_limit=300)

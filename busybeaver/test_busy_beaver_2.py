@@ -8,18 +8,43 @@ Created on Sat Mar 30 13:55:25 2019
 """
 from turing_machine import TuringMachine
 
+# Python generators are useful for Turing machines because they invert control
+# over to the caller. They can generate an output stream lazily
+#
+# EXAMPLE:
+# >>> x = (i ** 2 for i in range(1, 10))
+# >>> next(x)
+# 1
+# >>> next(x)
+# 4
+# >>> next(x)
+# 9
+#
+# This means that you could construct a Turing Machine lazily, repeatedly
+# ask for output with next, _only when needed_, or collect all its outputs 
+# if needed
+# 
+# EXAMPLE:
+# >>> x = (i ** 2 for i in range(1, 10))
+# >>> list(x)
+# [1, 4, 9, 16, 25, 36, 49, 64, 81]
 
 #create the Turing machine
+
 bbeaver = TuringMachine( 
     { 
-        #Write your transition rules here as entries to a Python dictionary
-        #For example, the key will be a pair (state, character)
-        #The value will be the triple (next state, character to write, move head L or R)
-        #such as ('q0', '1'): ('q1', '0', 'R'), which says if current state is q0 and 1 encountered
-        #then transition to state q1, write a 0 and move head right.
-        
+        ('a', '0'): ('b', '1', 'R'),
+        ('a', '1'): ('b', '1', 'L'),
+        ('b', '0'): ('a', '1', 'L'),
+        ('b', '1'): ('h', '1', 'R'),
     },
     start_state='a', accept_state='h', reject_state='r', blank_symbol='0'
 )
 
-bbeaver.debug('00000000000000', step_limit=1000)
+if __name__ == "__main__":
+    def run(input_):
+        w = input_
+        bbeaver.debug(w, step_limit=1000)
+        print()
+
+    run('00000000000000')
