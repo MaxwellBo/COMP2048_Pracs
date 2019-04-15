@@ -12,14 +12,17 @@ from turing_machine import TuringMachine
 multiplier = TuringMachine( 
     { 
         ('q0', '1'): ('SkipFirst', '', 'R'),
+        # We already have our first iteration; it's the accumulator
         ('SkipFirst', '1'): ('SkipGlobalLoop', 'd', 'R'),
+        # 1 * x: Keep x and accept
+        ('SkipFirst', '0'): ('qa', '', 'R'),
         ('SkipGlobalLoop', '1'): ('SkipGlobalLoop', '1', 'R'),
         ('SkipGlobalLoop', '0'): ('MarkAccumulatorLoopIndex', '0', 'R'),
         ('MarkAccumulatorLoopIndex', '1'): ('GetToEndOfAccAndMark', '*', 'R'),
         ('GetToEndOfAccAndMark', '1'): ('GetToEndOfAccAndMark', '1', 'R'),
         ('GetToEndOfAccAndMark', ''): ('GetToAccLoopIndexLeft', '#', 'L'),
-        ('MarkEndOfAcc', '1'): ('Place', '1', 'L'),
-        ('Place', '1'): ('GetToAccLoopIndexLeft', '1', 'L'),
+        ('MarkEndOfAcc', '1'): ('AddOne', '1', 'L'),
+        ('AddOne', '1'): ('GetToAccLoopIndexLeft', '1', 'L'),
         ('GetToAccLoopIndexLeft', '1'): ('GetToAccLoopIndexLeft', '1', 'L'),
         ('GetToAccLoopIndexLeft', '#'): ('GetToAccLoopIndexLeft', '#', 'L'),
         ('GetToAccLoopIndexLeft', '*'): ('IncrAccLoopIndex', '1', 'R'),
@@ -43,4 +46,6 @@ multiplier = TuringMachine(
     }
 )
 
-multiplier.debug('1110111', step_limit=300)
+multiplier.debug('1110111', step_limit=300) # output 1111111111
+multiplier.debug('11101', step_limit=300) # output 111
+multiplier.debug('10111', step_limit=300) # output 111
