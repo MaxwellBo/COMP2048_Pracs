@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     # SHOULD ACCEPT
     run("110111")
-    # outputs 110111
+    # outputs 11111
 
     # SHOULD ACCEPT
     run("11101111")

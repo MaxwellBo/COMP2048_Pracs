@@ -46,6 +46,5 @@ multiplier = TuringMachine(
     }
 )
 
-multiplier.debug('1110111', step_limit=300) # output 1111111111
-multiplier.debug('11101', step_limit=300) # output 111
-multiplier.debug('10111', step_limit=300) # output 111
+multiplier.debug('110111', step_limit=300) # output 1111111111
+multiplier.debug('111011111', step_limit=300) # output 1111111111

@@ -20,7 +20,7 @@ transitions = {
     ('Check0', '0'): ('FindLeftmost', 'X', 'L'),
     ('Check1', '1'): ('FindLeftmost', 'X', 'L'),
 
-    ('FindLeftmost', '0'): ('FindLeftmost', '0', 'L'),
+    ('FindLeftmost', '0'): ('FindLeftmost', '0', '
     ('FindLeftmost', '1'): ('FindLeftmost', '1', 'L'),
     ('FindLeftmost', 'X'): ('FindLeftmost', 'X', 'L'),
     ('FindLeftmost', '#'): ('FindLeftmost', '#', 'L'),

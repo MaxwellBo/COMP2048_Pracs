@@ -174,14 +174,14 @@ class TuringMachine:
                     symbol = self.blank_symbol
 
             #!<<<<<<<<< MODIFY BELOW >>>>>>>>>>>>
-            elif left_hand_side: #!<<<< MODIFY THIS SECTION OF IF STATEMENT FOR PART 3a
-                # Move to the left only if there is a symbold to move.
+            elif direction == 'L': #!<<<< MODIFY THIS SECTION OF IF STATEMENT FOR PART 3a
+                # Move to the left only if there is a symbol to move.
                 right_hand_side.insert(0, symbol)
 
                 try:
                     symbol = left_hand_side.pop(0)
                 except IndexError:
-                    # Pretend that we always have a blank symbol on the right.
+                    # Pretend that we always have a blank symbol on the left.
                     symbol = self.blank_symbol
             #!<<<<<<<<< MODIFY ABOVE >>>>>>>>>>>>
 
