@@ -48,20 +48,21 @@ class GameOfLife:
         def evolve_cell(footprint):
             center = footprint[4]
             footprint[4] = 0 # zero the center out so it doesn't influence our neighbor sum
+            alive = np.sum(footprint)
 
             # 1. Underpopulation: A live cell that has < 2 live neighbouring cells will die
             # 2. Survival: A live cell that has 2-3 live neighbouring cells will remain alive
             # 3. Overpopulation: A live cell with more than 3 live neighbours will die
             if center == self.aliveValue:
-                if sum(footprint) < 2:
+                if alive < 2:
                     return 0
-                elif 2 <= sum(footprint) <= 3:
+                elif 2 <= alive <= 3:
                     return 1
-                elif 3 < sum(footprint):
+                elif 3 < alive:
                     return 0
             else:
                 # 4. Reproduction: A dead cell with exactly 3 live neighbours will become alive
-                if sum(footprint) == 3:
+                if alive == 3:
                     return 1
                 return 0
 
@@ -152,8 +153,8 @@ class GameOfLife:
         with open(filename, 'r') as f:
             data = f.read()
             lines = data.split('\n')
-            filtered = [ i for i in lines if not i.startswith("!") ]
+            non_comment_lines = [ i for i in lines if not i.startswith("!") ]
 
-            for i in filtered:
-                print(i)
-
+            for (x, line) in enumerate(non_comment_lines):
+                for (y, cell) in enumerate(line):
+                    self.grid[index[0] + x, index[1] + y] = self.aliveValue if cell == 'O' else self.deadValue
