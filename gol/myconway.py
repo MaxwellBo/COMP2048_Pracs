@@ -27,7 +27,12 @@ footprint = np.array([[1,1,1],
                       [1,1,1],
                       [1,1,1]])
 
-results = ndimage.generic_filter(x, evolve, footprint=footprint, mode="constant", cval=0)
+results = x
 
-
+results = ndimage.generic_filter(results, evolve, footprint=footprint, mode="constant", cval=0)
 print(results)
+results = ndimage.generic_filter(results, evolve, footprint=footprint, mode="constant", cval=0)
+print(results)
+results = ndimage.generic_filter(results, evolve, footprint=footprint, mode="constant", cval=0)
+print(results)
+

@@ -9,7 +9,7 @@ Created on Tue Jan 15 12:21:17 2019
 @author: shakes
 """
 import numpy as np
-from scipy import signal
+from scipy import signal, ndimage
 
 class GameOfLife:
     '''
@@ -37,19 +37,6 @@ class GameOfLife:
         return self.getStates()
                
     def evolve(self):
-        g = self.grid
-        for ((x, y), i) in np.ndenumerate(g):
-            neighbors = [ 
-                g.get(x - 1, y + 1), g.get(x, y + 1), x.get(x + 1, y + 1),
-                g.get(x - 1, y),                      x.get(x + 1, y),
-                g.get(x - 1, y - 1), g.get(x, y - 1), x.get(x + 1, y - 1),
-            ]
-
-            print(neighbors)
-
-
-        
-
         '''
         Given the current states of the cells, apply the GoL rules:
         - Any live cell with fewer than two live neighbors dies, as if by underpopulation.
@@ -57,16 +44,42 @@ class GameOfLife:
         - Any live cell with more than three live neighbors dies, as if by overpopulation.
         - Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction
         '''
-                    
-        #get weighted sum of neighbors
-        #PART A & E CODE HERE
-        
-        #implement the GoL rules by thresholding the weights
-        #PART A CODE HERE
-        
-        #update the grid
-#        self.grid = #UNCOMMENT THIS WITH YOUR UPDATED GRID
-    
+
+        def evolve_cell(footprint):
+            center = footprint[4]
+            footprint[4] = 0 # zero the center out so it doesn't influence our neighbor sum
+
+            # 1. Underpopulation: A live cell that has < 2 live neighbouring cells will die
+            # 2. Survival: A live cell that has 2-3 live neighbouring cells will remain alive
+            # 3. Overpopulation: A live cell with more than 3 live neighbours will die
+            if center == self.aliveValue:
+                if sum(footprint) < 2:
+                    return 0
+                elif 2 <= sum(footprint) <= 3:
+                    return 1
+                elif 3 < sum(footprint):
+                    return 0
+            else:
+                # 4. Reproduction: A dead cell with exactly 3 live neighbours will become alive
+                if sum(footprint) == 3:
+                    return 1
+                return 0
+
+
+        footprint = np.array([[1,1,1],
+                            [1,1,1],
+                            [1,1,1]])
+
+        self.grid = ndimage.generic_filter(
+            input=self.grid, 
+            function=evolve_cell, 
+            footprint=footprint, 
+            # The mode parameter determines how the array borders are handled, 
+            mode="constant", 
+            # where cval is the value when mode is equal to 'constant'.
+            cval=self.deadValue
+        )
+
     def insertBlinker(self, index=(0,0)):
         '''
         Insert a blinker oscillator construct at the index position
@@ -133,3 +146,14 @@ class GameOfLife:
         
         self.grid[index[0]+9, index[1]+14] = self.aliveValue
         self.grid[index[0]+9, index[1]+15] = self.aliveValue
+
+    def insertFromFile(self, filename, index=((0,0))):
+
+        with open(filename, 'r') as f:
+            data = f.read()
+            lines = data.split('\n')
+            filtered = [ i for i in lines if not i.startswith("!") ]
+
+            for i in filtered:
+                print(i)
+
