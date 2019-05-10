@@ -64,17 +64,16 @@ class GameOfLife:
                 # 4. Reproduction: A dead cell with exactly 3 live neighbours will become alive
                 if alive == 3:
                     return 1
+
                 return 0
 
-
-        footprint = np.array([[1,1,1],
-                            [1,1,1],
-                            [1,1,1]])
 
         self.grid = ndimage.generic_filter(
             input=self.grid, 
             function=evolve_cell, 
-            footprint=footprint, 
+            footprint=np.array([[1,1,1],
+                                [1,1,1],
+                                [1,1,1]]), 
             # The mode parameter determines how the array borders are handled, 
             mode="constant", 
             # where cval is the value when mode is equal to 'constant'.
