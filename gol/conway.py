@@ -35,8 +35,24 @@ class GameOfLife:
         Same as getStates()
         '''
         return self.getStates()
-               
+
     def evolve(self):
+        neighbors = signal.convolve2d(
+            self.grid, 
+            self.neighborhood, 
+            # The output is the same size as in1, centered with respect to the ‘full’ output.
+            mode='same', 
+            boundary='fill', 
+            fillvalue=0
+        )
+
+        only_2_neighbors = np.equal(neighbors, 2)
+        only_3_neighbors = np.equal(neighbors, 3)
+
+        # if (center == self.aliveValue and alive == 2) or (alive == 3):
+        self.grid = np.logical_or(np.logical_and(self.grid, only_2_neighbors), only_3_neighbors).astype(int)
+               
+    def old_evole(self):
         '''
         Given the current states of the cells, apply the GoL rules:
         - Any live cell with fewer than two live neighbors dies, as if by underpopulation.
@@ -53,20 +69,12 @@ class GameOfLife:
             # 1. Underpopulation: A live cell that has < 2 live neighbouring cells will die
             # 2. Survival: A live cell that has 2-3 live neighbouring cells will remain alive
             # 3. Overpopulation: A live cell with more than 3 live neighbours will die
-            if center == self.aliveValue:
-                if alive < 2:
-                    return 0
-                elif 2 <= alive <= 3:
-                    return 1
-                elif 3 < alive:
-                    return 0
-            else:
-                # 4. Reproduction: A dead cell with exactly 3 live neighbours will become alive
-                if alive == 3:
-                    return 1
-
-                return 0
-
+            # 4. Reproduction: A dead cell with exactly 3 live neighbours will become alive
+            # is equivalent to
+            if (center == self.aliveValue and alive == 2) or (alive == 3):
+                return 1
+            
+            return 0
 
         self.grid = ndimage.generic_filter(
             input=self.grid, 
