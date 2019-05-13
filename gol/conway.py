@@ -129,15 +129,15 @@ class GameOfLife:
         self.grid[index[0]+4, index[1]+36] = self.aliveValue
         self.grid[index[0]+4, index[1]+37] = self.aliveValue
         
-        self.grid[index[0]+5, index[1]+1] = self.aliveValue
-        self.grid[index[0]+5, index[1]+2] = self.aliveValue
+        self.grid[index[0]+5, index[1]+1 + 1] = self.aliveValue
+        self.grid[index[0]+5, index[1]+2 + 1] = self.aliveValue
         self.grid[index[0]+5, index[1]+12] = self.aliveValue
         self.grid[index[0]+5, index[1]+18] = self.aliveValue
         self.grid[index[0]+5, index[1]+22] = self.aliveValue
         self.grid[index[0]+5, index[1]+23] = self.aliveValue
         
-        self.grid[index[0]+6, index[1]+1] = self.aliveValue
-        self.grid[index[0]+6, index[1]+2] = self.aliveValue
+        self.grid[index[0]+6, index[1]+1 + 1] = self.aliveValue
+        self.grid[index[0]+6, index[1]+2 + 1] = self.aliveValue
         self.grid[index[0]+6, index[1]+12] = self.aliveValue
         self.grid[index[0]+6, index[1]+16] = self.aliveValue
         self.grid[index[0]+6, index[1]+18] = self.aliveValue

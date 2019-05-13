@@ -14,10 +14,11 @@ N = 64
 life = conway.GameOfLife(N)
 #life.insertBlinker((0,0))
 # life.insertGlider((0,0))
-# life.insertGliderGun((10,10))
+life.insertGliderGun((10,10))
+# life.insertFromFile("gosperglidergun.cells", (30,10))
 # life.insertFromFile("achimsotherp16.cells", (15, 15))
 # life.insertFromFile("168p22.1.cells", (20, 20))
-life.insertFromFile("128p102.cells", (20, 20))
+# life.insertFromFile("128p102.cells", (20, 20))
 cells = life.getStates() #initial state
 
 #-------------------------------
