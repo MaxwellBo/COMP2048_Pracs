@@ -12,6 +12,8 @@ N = 64
 
 #create the game of life object
 life = conway.Ant(N)
+# life.insertChaos(index=life.ant_location)
+
 cells = life.getStates() #initial state
 
 #-------------------------------
@@ -36,9 +38,9 @@ def animate(i):
     
     return img,
 
-interval = 20 #ms
+interval = 1 #ms
 
 #animate 24 frames with interval between them calling animate function at each frame
-ani = animation.FuncAnimation(fig, animate, frames=24, interval=interval, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames=1, interval=interval, blit=True)
 
 plt.show()

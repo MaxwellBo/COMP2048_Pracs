@@ -13,12 +13,20 @@ from scipy import signal, ndimage
 np.set_printoptions(threshold=99999)
 
 
+
 BINARY_TRANSITION_TABLE = {
     0: (1, 'L'),
     1: (0, 'R')
 }
 
 DIRECTION = 'NESW'
+
+OFFSET_TABLE = offset = {
+    'N': (0, 1),
+    'S': (0, -1),
+    'E': (1, 0),
+    'W': (-1, 0)
+}
 
 class Ant:
     def __init__(self, N=256, ant_location=(32,32), transition_table=BINARY_TRANSITION_TABLE):
@@ -52,12 +60,7 @@ class Ant:
         self.ant_direction = DIRECTION[(DIRECTION.find(self.ant_direction) + offset) % len(DIRECTION)]
 
     def move(self):
-        offset = {
-            'N': (0, 1),
-            'S': (0, -1),
-            'E': (1, 0),
-            'W': (-1, 0)
-        }[self.ant_direction]
+        offset = OFFSET_TABLE[self.ant_direction]
 
         self.ant_location = (
             self.ant_location[0] + offset[0], 
@@ -74,7 +77,12 @@ class Ant:
         self.set_under_ant(new_square)
         self.turn(l_or_r=turn)
         self.move()
-    
+
+    def insertChaos(self, index=(0, 0)):
+        self.grid[index[0], index[1]] = 1
+        self.grid[index[0]+1, index[1]] = 1
+        self.grid[index[0]+2, index[1]] = 1
+
 class GameOfLife:
     '''
     Object for computing Conway's Game of Life (GoL) cellular machine/automata
