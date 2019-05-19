@@ -14,8 +14,8 @@ N = 64
 #create the game of life object
 life = conway.GameOfLife(N)
 # life.insertBlinker((0,0))
-# life.insertGlider((0,0))
-life.insertGliderGun((0,0))
+life.insertGlider((0,0))
+# life.insertGliderGun((0,0))
 cells = life.getStates() #initial state
 
 #evolve once
@@ -45,10 +45,10 @@ ax.grid(which='minor', color='w', linestyle='-', linewidth=1)
 plt.figure(0)
 plt.imshow(cells)
 
-# plt.figure(1)
-# plt.imshow(cellsUpdated1)
+plt.figure(1)
+plt.imshow(cellsUpdated1)
 
-# plt.figure(2)
-# plt.imshow(cellsUpdated2)
+plt.figure(2)
+plt.imshow(cellsUpdated2)
 
 plt.show()

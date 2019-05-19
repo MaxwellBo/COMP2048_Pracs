@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Game of life script with animated evolution
+Ant script with animated evolution
 
 Created on Tue Jan 15 12:37:52 2019
 
@@ -11,14 +11,7 @@ import conway
 N = 64
 
 #create the game of life object
-life = conway.GameOfLife(N)
-#life.insertBlinker((0,0))
-# life.insertGlider((0,0))
-# life.insertGliderGun((10,10))
-# life.insertFromFile("gosperglidergun.cells", (30,10))
-# life.insertFromFile("achimsotherp16.cells", (15, 15))
-# life.insertFromFile("168p22.1.cells", (20, 20))
-life.insertFromFile("128p102.cells", (20, 20))
+life = conway.Ant(N)
 cells = life.getStates() #initial state
 
 #-------------------------------
@@ -43,7 +36,7 @@ def animate(i):
     
     return img,
 
-interval = 200 #ms
+interval = 20 #ms
 
 #animate 24 frames with interval between them calling animate function at each frame
 ani = animation.FuncAnimation(fig, animate, frames=24, interval=interval, blit=True)
