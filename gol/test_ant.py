@@ -6,14 +6,17 @@ Created on Tue Jan 15 12:37:52 2019
 
 @author: shakes
 """
-import conway
+import ant
 
 N = 64
 
-table = conway.SQUARE_TRANSITION_TABLE
+# https://en.wikipedia.org/wiki/Langton%27s_ant#Extension_to_multiple_colors
+table = ant.ANT_TRANSITION_TABLE
+# table = ant.SYMMETRIC_TRANSITION_TABLE
+# table = ant.SQUARE_TRANSITION_TABLE
 
 #create the game of life object 
-life = conway.Ant(N, transition_table=table)
+life = ant.Ant(N, transition_table=table)
 # life.insertChaos(index=life.ant_location)
 
 cells = life.getStates() #initial state
