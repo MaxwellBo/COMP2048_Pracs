@@ -27,6 +27,27 @@ SQUARE_TRANSITION_TABLE = {
     8: (0, 'R')
 }
 
+
+FILLED_TRIANGLE_TABLE = {
+    0: (1, 'R'),
+    1: (2, 'R'),
+
+    2: (3, 'L'),
+    3: (4, 'L'),
+    4: (5, 'L'),
+
+    5: (6, 'R'),
+
+    6: (7, 'L'),
+    7: (8, 'L'),
+    8: (9, 'L'),
+
+    9: (10, 'R'),
+    10: (11, 'R'),
+    11: (0, 'R'),
+}
+
+
 DIRECTION = 'NESW'
 
 OFFSET_TABLE = offset = {

@@ -8,12 +8,13 @@ Created on Tue Jan 15 12:37:52 2019
 """
 import ant
 
-N = 64
+N = 128
 
 # https://en.wikipedia.org/wiki/Langton%27s_ant#Extension_to_multiple_colors
-table = ant.ANT_TRANSITION_TABLE
+# table = ant.ANT_TRANSITION_TABLE
 # table = ant.SYMMETRIC_TRANSITION_TABLE
 # table = ant.SQUARE_TRANSITION_TABLE
+table = ant.FILLED_TRIANGLE_TABLE
 
 #create the game of life object 
 life = ant.Ant(N, transition_table=table)
@@ -46,6 +47,6 @@ def animate(i):
 interval = 1 #ms
 
 #animate 24 frames with interval between them calling animate function at each frame
-ani = animation.FuncAnimation(fig, animate, frames=1, interval=interval, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames=60, interval=interval, blit=True)
 
 plt.show()
