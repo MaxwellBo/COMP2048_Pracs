@@ -10,21 +10,20 @@ Created on Tue Jan 15 12:21:17 2019
 """
 import numpy as np
 from scipy import signal, ndimage
-np.set_printoptions(threshold=99999)
 
-BINARY_TRANSITION_TABLE = {
-    0: (1, 'L'),
-    1: (0, 'R')
+ANT_TRANSITION_TABLE = {
+    0: (1, 'R'),
+    1: (0, 'L')
 }
 
-QUAD_TRANSITION_TABLE = {
+SYMMETRIC_TRANSITION_TABLE = {
     0: (1, 'L'),
     1: (2, 'L'),
     2: (3, 'R'),
     3: (0, 'R')
 }
 
-STRANGE_TRANSITION_TABLE = {
+SQUARE_TRANSITION_TABLE = {
     0: (1, 'L'),
 
     1: (2, 'R'),
@@ -49,13 +48,11 @@ OFFSET_TABLE = offset = {
 }
 
 class Ant:
-    def __init__(self, N=256, ant_location=(32,32), transition_table=BINARY_TRANSITION_TABLE):
+    def __init__(self, N=256, ant_location=(32,32), transition_table=ANT_TRANSITION_TABLE):
         self.grid = np.zeros((N,N), np.uint)
         self.ant_location = ant_location
         self.ant_direction = DIRECTION[0]
         self.transition_table = transition_table
-        
-        self.set_under_ant(1)
     
     def getStates(self):
         '''

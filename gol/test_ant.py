@@ -10,11 +10,11 @@ import conway
 
 N = 64
 
-table = conway.STRANGE_TRANSITION_TABLE
+table = conway.SQUARE_TRANSITION_TABLE
 
-#create the game of life object
+#create the game of life object 
 life = conway.Ant(N, transition_table=table)
-life.insertChaos(index=life.ant_location)
+# life.insertChaos(index=life.ant_location)
 
 cells = life.getStates() #initial state
 
