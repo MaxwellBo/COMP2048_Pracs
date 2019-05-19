@@ -12,11 +12,31 @@ import numpy as np
 from scipy import signal, ndimage
 np.set_printoptions(threshold=99999)
 
-
-
 BINARY_TRANSITION_TABLE = {
     0: (1, 'L'),
     1: (0, 'R')
+}
+
+QUAD_TRANSITION_TABLE = {
+    0: (1, 'L'),
+    1: (2, 'L'),
+    2: (3, 'R'),
+    3: (0, 'R')
+}
+
+STRANGE_TRANSITION_TABLE = {
+    0: (1, 'L'),
+
+    1: (2, 'R'),
+    2: (3, 'R'),
+    3: (4, 'R'),
+    4: (5, 'R'),
+    5: (6, 'R'),
+
+    6: (7, 'L'),
+    7: (8, 'L'),
+
+    8: (0, 'R')
 }
 
 DIRECTION = 'NESW'
@@ -82,6 +102,10 @@ class Ant:
         self.grid[index[0], index[1]] = 1
         self.grid[index[0]+1, index[1]] = 1
         self.grid[index[0]+2, index[1]] = 1
+        self.grid[index[0]+3, index[1]] = 1
+        self.grid[index[0]+4, index[1]] = 1
+        self.grid[index[0]+5, index[1]] = 1
+        self.grid[index[0]+6, index[1]] = 1
 
 class GameOfLife:
     '''

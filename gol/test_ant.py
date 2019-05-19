@@ -10,9 +10,11 @@ import conway
 
 N = 64
 
+table = conway.STRANGE_TRANSITION_TABLE
+
 #create the game of life object
-life = conway.Ant(N)
-# life.insertChaos(index=life.ant_location)
+life = conway.Ant(N, transition_table=table)
+life.insertChaos(index=life.ant_location)
 
 cells = life.getStates() #initial state
 
@@ -25,7 +27,7 @@ fig = plt.figure()
 
 plt.gray()
 
-img = plt.imshow(cells, animated=True)
+img = plt.imshow(cells, animated=True, cmap='gist_ncar', vmin=0, vmax=(len(table) - 1))
 
 def animate(i):
     """perform animation step"""
