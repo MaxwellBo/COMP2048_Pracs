@@ -27,7 +27,6 @@ SQUARE_TRANSITION_TABLE = {
     8: (0, 'R')
 }
 
-
 FILLED_TRIANGLE_TABLE = {
     0: (1, 'R'),
     1: (2, 'R'),
@@ -49,7 +48,7 @@ FILLED_TRIANGLE_TABLE = {
 
 DIRECTION = 'NESW'
 
-OFFSET_TABLE = offset = {
+OFFSET_TABLE  = {
     'N': (0, 1),
     'S': (0, -1),
     'E': (1, 0),
@@ -104,7 +103,7 @@ class Ant:
         self.turn(l_or_r=turn)
         self.move()
 
-    def insertChaos(self, index=(0, 0)):
+    def insert_chaos(self, index=(0, 0)):
         self.grid[index[0], index[1]] = 1
         self.grid[index[0]+1, index[1]] = 1
         self.grid[index[0]+2, index[1]] = 1
@@ -117,15 +116,20 @@ class Ant:
 
 N = 96
 
+n = int(input("Please select your ruleset: (0 - 3)"))
+
 # https://en.wikipedia.org/wiki/Langton%27s_ant#Extension_to_multiple_colors
-table =ANT_TRANSITION_TABLE
-# table = SYMMETRIC_TRANSITION_TABLE
-# table = SQUARE_TRANSITION_TABLE
-# table = FILLED_TRIANGLE_TABLE
+table = {
+    0: ANT_TRANSITION_TABLE,
+    1: SYMMETRIC_TRANSITION_TABLE,
+    2: SQUARE_TRANSITION_TABLE,
+    3: FILLED_TRIANGLE_TABLE
+}[n]
+
 
 #create the game of life object 
 life = Ant(N, transition_table=table)
-# life.insertChaos(index=life.ant_location)
+# life.insert_chaos(index=life.ant_location)
 
 cells = life.getStates() #initial state
 
